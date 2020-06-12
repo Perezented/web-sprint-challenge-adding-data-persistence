@@ -1,25 +1,45 @@
 exports.up = function (knex) {
     return knex.schema
         .createTable("projects", (tbl) => {
-            tbl.increments("projectsID");
+            tbl.increments("projectID");
             tbl.string("name").notNullable().index();
             tbl.string(("description", 255));
             tbl.boolean("completed").notNullable().defaultTo(0);
         })
-        .createTable("resource", (tbl) => {
-            tbl.increments();
+        .createTable("resources", (tbl) => {
+            tbl.increments("resourceID");
             tbl.unique("name").index().notNullable();
             tbl.string("description", 255);
         })
-        .createTable("task", (tbl) => {
+        .createTable("tasks", (tbl) => {
             tbl.increments("taskID");
             tbl.string("description", 255).notNullable().index();
             tbl.sting("notes", 255);
             tbl.boolean("completed").notNullable().defaultTo(0);
             tbl.integer("ProjectID")
                 .unsigned()
-                .references("projects.projectsID");
+                .references("projects.projectID")
+                .onDelete("RESTRICT")
+                .onUpdate("CASCADE");
+        })
+        .createTable("projectResources", (tbl) => {
+            tbl.integer();
+            tbl.integer("ResourceID")
+                .unsigned()
+                .references("resources.resourceID")
+                .onDelete("RESTRICT")
+                .onUpdate("CASCADE");
+            tbl.integer("ProjectID")
+                .unsigned()
+                .references("projects.projectID")
+                .onDelete("RESTRICT")
+                .onUpdate("CASCADE");
         });
 };
 
-exports.down = function (knex) {};
+exports.down = function (knex) {
+    return knex.schema.dropTableIfExists("projectResources");
+    return knex.schema.dropTableIfExists("tasks");
+    return knex.schema.dropTableIfExists("resources");
+    return knex.schema.dropTableIfExists("projects");
+};
