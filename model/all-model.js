@@ -6,6 +6,8 @@ module.exports = {
     addProject,
     addTask,
     addResource,
+    getProjectResources,
+    getSingleProjectsResources,
 };
 function getProjects() {
     return db("projects");
@@ -29,4 +31,23 @@ function addTask(newTask) {
 }
 function addResource(newResource) {
     return db("resources").insert(newResource, "*");
+}
+function getProjectResources() {
+    return db("projectResources")
+        .join("projects", "projectResources.ProjectID", "projects.projectID")
+        .join(
+            "resources",
+            "projectResources.ResourceID",
+            "resources.resourceID"
+        );
+}
+function getSingleProjectsResources(projectID) {
+    return db("projectResources")
+        .join("projects", "projectResources.ProjectID", "projects.projectID")
+        .join(
+            "resources",
+            "projectResources.ResourceID",
+            "resources.resourceID"
+        )
+        .where("projectResources.ProjectID", projectID);
 }

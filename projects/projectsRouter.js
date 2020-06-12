@@ -79,4 +79,33 @@ router.post("/resources", (req, res) => {
             res.status(500).json({ error: "error adding resource" });
         });
 });
+
+router.get("/project-resources", (req, res) => {
+    projectsdb
+        .getProjectResources()
+        .then((theresources) => {
+            console.log(theresources);
+            res.status(201).json(theresources);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({
+                error: "error retrieving resources",
+            });
+        });
+});
+router.get("/project-resources/:id", (req, res) => {
+    projectsdb
+        .getSingleProjectsResources(req.params.id)
+        .then((theresources) => {
+            console.log(theresources);
+            res.status(201).json(theresources);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({
+                error: "error retrieving resources",
+            });
+        });
+});
 module.exports = router;
