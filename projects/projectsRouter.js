@@ -2,6 +2,7 @@ const express = require("express");
 const router = express();
 
 const projectsdb = require("../model/all-model");
+//  get all the projects
 
 router.get("/projects", (req, res) => {
     return projectsdb
@@ -18,6 +19,9 @@ router.get("/projects", (req, res) => {
             });
         });
 });
+
+//  add a project
+
 router.post("/projects", (req, res) => {
     projectsdb
         .addProject(req.body)
@@ -29,6 +33,7 @@ router.post("/projects", (req, res) => {
             res.status(500).json({ error: "error adding project", err });
         });
 });
+//  get all the tasks
 
 router.get("/tasks", (req, res) => {
     return projectsdb
@@ -43,6 +48,9 @@ router.get("/tasks", (req, res) => {
             });
         });
 });
+
+//  add a task
+
 router.post("/tasks", (req, res) => {
     projectsdb
         .addTask(req.body)
@@ -54,6 +62,7 @@ router.post("/tasks", (req, res) => {
             res.status(500).json({ error: "error adding task" });
         });
 });
+//  get all the resources
 
 router.get("/resources", (req, res) => {
     return projectsdb
@@ -68,6 +77,9 @@ router.get("/resources", (req, res) => {
             });
         });
 });
+
+//  add a resource
+
 router.post("/resources", (req, res) => {
     projectsdb
         .addResource(req.body)
@@ -79,6 +91,8 @@ router.post("/resources", (req, res) => {
             res.status(500).json({ error: "error adding resource" });
         });
 });
+
+//  gets all the projects and their resources
 
 router.get("/project-resources", (req, res) => {
     projectsdb
@@ -94,6 +108,9 @@ router.get("/project-resources", (req, res) => {
             });
         });
 });
+
+//  Gets resources for specified project
+
 router.get("/project-resources/:id", (req, res) => {
     projectsdb
         .getSingleProjectsResources(req.params.id)
