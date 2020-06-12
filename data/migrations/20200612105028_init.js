@@ -3,18 +3,18 @@ exports.up = function (knex) {
         .createTable("projects", (tbl) => {
             tbl.increments("projectID");
             tbl.string("name").notNullable().index();
-            tbl.string(("description", 255));
+            tbl.string("description", 255);
             tbl.boolean("completed").notNullable().defaultTo(0);
         })
         .createTable("resources", (tbl) => {
             tbl.increments("resourceID");
-            tbl.unique("name").index().notNullable();
+            tbl.string("name").unique().index().notNullable();
             tbl.string("description", 255);
         })
         .createTable("tasks", (tbl) => {
             tbl.increments("taskID");
             tbl.string("description", 255).notNullable().index();
-            tbl.sting("notes", 255);
+            tbl.string("notes", 255);
             tbl.boolean("completed").notNullable().defaultTo(0);
             tbl.integer("ProjectID")
                 .unsigned()
@@ -23,7 +23,7 @@ exports.up = function (knex) {
                 .onUpdate("CASCADE");
         })
         .createTable("projectResources", (tbl) => {
-            tbl.integer();
+            tbl.increments();
             tbl.integer("ResourceID")
                 .unsigned()
                 .references("resources.resourceID")
