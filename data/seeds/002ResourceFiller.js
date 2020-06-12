@@ -7,16 +7,16 @@ exports.seed = function (knex) {
             return knex("resources").insert([
                 {
                     name: "computer",
-                    description: "magic box machine",
+                    resourceDescription: "magic box machine",
                 },
                 {
                     name: "mouse",
-                    description:
+                    resourceDescription:
                         "not a live animal but a plastic clicker machine",
                 },
                 {
                     name: "room",
-                    description: "dark place where coder likes to code",
+                    resourceDescription: "dark place where coder likes to code",
                 },
             ]);
         });

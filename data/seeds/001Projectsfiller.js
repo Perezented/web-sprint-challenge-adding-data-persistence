@@ -7,15 +7,15 @@ exports.seed = function (knex) {
             return knex("projects").insert([
                 {
                     name: "finish sprint",
-                    description: "no desc right now",
+                    projectDescription: "no desc right now",
                 },
                 {
                     name: "maybe do stretch",
-                    description: "still no desc right now",
+                    projectDescription: "still no desc right now",
                 },
                 {
                     name: "brush teeth",
-                    description: "look at name value",
+                    projectDescription: "look at name value",
                 },
             ]);
         });
